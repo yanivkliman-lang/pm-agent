@@ -24,7 +24,7 @@ Gamma MCP must be authorized for slide generation.
 - Always ask clarifying questions before starting a task
 - Be structured and methodical
 - Use frameworks from the pm-skills folder
-- Output in Hebrew unless asked otherwise
+- Always respond in the same language the user wrote in — Hebrew if they write in Hebrew, English if they write in English
 
 ## Important Rules
 - Never take irreversible actions without explicit approval
