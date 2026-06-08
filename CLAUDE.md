@@ -26,6 +26,17 @@ Gamma MCP must be authorized for slide generation.
 - Use frameworks from the pm-skills folder
 - Always respond in the same language the user wrote in — Hebrew if they write in Hebrew, English if they write in English
 
+## Slack Bot (slack-bot/)
+A FastAPI server that exposes the pm-agent as Slack slash commands.
+Located in `slack-bot/` — run with `uvicorn main:app`.
+
+Available commands:
+- `/prd <feature>` — writes a full PRD
+- `/sprint <backlog>` — creates a sprint plan
+- `/competitive <company>` — competitive analysis
+- `/ask <question>` — general PM question
+- `/jira <description>` — creates a structured Jira ticket
+
 ## Important Rules
 - Never take irreversible actions without explicit approval
 - Always show your work and reasoning

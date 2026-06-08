@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hi Auto — Competitive Market Map</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 48px 56px;
+    color: #1a1a1a;
+    max-width: 860px;
+  }
+  h2 { font-size: 1.25em; margin-bottom: 4px; }
+  .subtitle { font-size: 0.82em; color: #777; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+
+<h2>Competitive Market Map</h2>
+<div class="subtitle">
+  Bubble size = estimated locations deployed &nbsp;|&nbsp;
+  X axis = Drive-thru specialization &nbsp;|&nbsp;
+  Y axis = Market scale (locations)
+</div>
+
+<canvas id="marketMap" width="820" height="500"></canvas>
+
+<script>
+const alpha = (hex, a) => hex + Math.round(a * 255).toString(16).padStart(2,'0');
+
+const companies = [
+  { label: 'Hi Auto',                 x: 99, y: 14, r: 13, color: '#1a1a1a' },
+  { label: 'ConverseNow + Valyant',   x: 80, y: 28, r: 22, color: '#cc2222' },
+  { label: 'SoundHound AI',           x: 38, y: 88, r: 36, color: '#e07a2b' },
+  { label: 'Presto Phoenix',          x: 97, y:  7, r: 10, color: '#8b2be0' },
+  { label: 'Kea AI',                  x: 66, y:  4, r:  7, color: '#aaaaaa' },
+];
+
+const scaleLabels = { 14: '~1K', 28: '~2K', 88: '~10K+', 7: 'Undisclosed', 4: 'Hundreds' };
+
+new Chart(document.getElementById('marketMap').getContext('2d'), {
+  type: 'bubble',
+  data: {
+    datasets: companies.map(c => ({
+      label: c.label,
+      data: [{ x: c.x, y: c.y, r: c.r }],
+      backgroundColor: alpha(c.color, 0.20),
+      borderColor: c.color,
+      borderWidth: 2.5,
+    }))
+  },
+  options: {
+    responsive: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { font: { size: 12.5 }, padding: 18, boxWidth: 13 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const c = companies[ctx.datasetIndex];
+            return ` ${c.label}  |  Focus: ${c.x}%  |  Scale: ${scaleLabels[c.y]} locations`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        min: 0, max: 115,
+        title: { display: true, text: 'Drive-Thru Specialization (%) →', font: { size: 12.5, weight: 'bold' } },
+        grid: { color: '#efefef' },
+        ticks: { callback: v => v <= 100 ? v + '%' : '', stepSize: 20 }
+      },
+      y: {
+        min: 0, max: 104,
+        title: { display: true, text: 'Market Scale (locations) →', font: { size: 12.5, weight: 'bold' } },
+        grid: { color: '#efefef' },
+        ticks: {
+          callback: v => ({ 0:'0', 14:'~1K', 28:'~2K', 50:'~5K', 88:'~10K+' }[v] ?? ''),
+          stepSize: 14
+        }
+      }
+    }
+  },
+  plugins: [{
+    id: 'customDraw',
+    afterDraw(chart) {
+      const ctx = chart.ctx;
+      const xScale = chart.scales.x;
+      const yScale = chart.scales.y;
+
+      // ── Arrow from Hi Auto → ConverseNow ──
+      const hx = xScale.getPixelForValue(99);
+      const hy = yScale.getPixelForValue(14);
+      const cx = xScale.getPixelForValue(80);
+      const cy = yScale.getPixelForValue(28);
+
+      // Arrow line
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(hx - 14, hy + 2);
+      ctx.lineTo(cx + 24, cy - 4);
+      ctx.strokeStyle = '#cc2222';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.stroke();
+      ctx.restore();
+
+      // ── ConverseNow: dashed threat circle + label ──
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, 54, 0, Math.PI * 2);
+      ctx.strokeStyle = '#cc222255';
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([5, 4]);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.font = 'bold 11.5px Arial';
+      ctx.fillStyle = '#cc2222';
+      ctx.fillText('▲ Nearest & Biggest Threat', cx - 80, cy - 60);
+      ctx.restore();
+
+      // ── Hi Auto label ──
+      ctx.save();
+      ctx.font = 'bold 12px Arial';
+      ctx.fillStyle = '#1a1a1a';
+      ctx.fillText('Hi Auto', hx + 16, hy - 6);
+      ctx.restore();
+
+      // ── SoundHound label ──
+      const sx = xScale.getPixelForValue(38);
+      const sy = yScale.getPixelForValue(88);
+      ctx.save();
+      ctx.font = '11px Arial';
+      ctx.fillStyle = '#e07a2b';
+      ctx.fillText('Different strategic lane', sx + 40, sy - 6);
+      ctx.fillText('(omnichannel)', sx + 40, sy + 10);
+      ctx.restore();
+
+      // ── Presto label ──
+      const px = xScale.getPixelForValue(97);
+      const py = yScale.getPixelForValue(7);
+      ctx.save();
+      ctx.font = '11px Arial';
+      ctx.fillStyle = '#8b2be0';
+      ctx.fillText('Watch', px - 52, py - 14);
+      ctx.restore();
+    }
+  }]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Yotpo Ignite — Mockups</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F0F2F5; color: #1A202C; }
+
+  /* ── Layout ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+  .screen { background: #fff; border-radius: 14px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); margin-bottom: 64px; overflow: hidden; }
+  .screen-label { font-size: 11px; font-weight: 700; color: #6B7280; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+
+  /* ── Nav bar ── */
+  .topbar { background: #1E1B4B; padding: 14px 28px; display: flex; align-items: center; gap: 16px; }
+  .topbar-logo { color: #fff; font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+  .topbar-logo span { color: #A78BFA; }
+  .topbar-sep { color: #4B5563; }
+  .topbar-page { color: #C4B5FD; font-size: 14px; font-weight: 500; }
+
+  /* ── Two-column layout ── */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .col { padding: 28px; }
+  .col-left { border-right: 1px solid #E5E7EB; }
+
+  /* ── Section heading ── */
+  .section-title { font-size: 15px; font-weight: 700; color: #1E1B4B; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  .badge { background: #EDE9FE; color: #6D28D9; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+  .badge-green { background: #D1FAE5; color: #065F46; }
+  .badge-orange { background: #FEF3C7; color: #92400E; }
+  .badge-red { background: #FEE2E2; color: #991B1B; }
+
+  /* ── Form elements ── */
+  .form-group { margin-bottom: 18px; }
+  label { font-size: 12px; font-weight: 600; color: #6B7280; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .input { width: 100%; border: 1.5px solid #E5E7EB; border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #1A202C; background: #FAFAFA; }
+  .input:focus { outline: none; border-color: #7C3AED; }
+  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hint { font-size: 11px; color: #9CA3AF; margin-top: 4px; }
+
+  /* ── Reviewer pool ── */
+  .reviewer-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 10px; border: 1.5px solid #E5E7EB; margin-bottom: 10px; background: #FAFAFA; }
+  .reviewer-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #fff; flex-shrink: 0; }
+  .reviewer-info { flex: 1; }
+  .reviewer-name { font-size: 13px; font-weight: 600; color: #1A202C; }
+  .reviewer-meta { font-size: 11px; color: #9CA3AF; margin-top: 2px; }
+  .richness-bar { width: 60px; height: 6px; background: #E5E7EB; border-radius: 3px; margin-top: 4px; overflow: hidden; }
+  .richness-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #7C3AED, #A78BFA); }
+  .star { color: #F59E0B; font-size: 11px; }
+  .reviewer-actions { display: flex; gap: 6px; }
+  .btn-swap { background: none; border: 1px solid #D1D5DB; border-radius: 6px; padding: 4px 10px; font-size: 11px; color: #6B7280; cursor: pointer; }
+  .btn-primary { background: #7C3AED; color: #fff; border: none; border-radius: 8px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 8px; }
+  .btn-outline { background: none; color: #7C3AED; border: 2px solid #7C3AED; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 8px; }
+
+  /* ── AI insight box ── */
+  .ai-box { background: linear-gradient(135deg, #EDE9FE 0%, #FDF4FF 100%); border: 1.5px solid #C4B5FD; border-radius: 10px; padding: 14px 16px; margin-bottom: 18px; }
+  .ai-box-title { font-size: 12px; font-weight: 700; color: #6D28D9; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .ai-box p { font-size: 12px; color: #5B21B6; line-height: 1.5; }
+
+  /* ── SCREEN 2: Review Form ── */
+  .review-form-wrap { padding: 32px; max-width: 600px; margin: 0 auto; }
+  .product-preview { display: flex; gap: 16px; align-items: center; background: #F9FAFB; border-radius: 10px; padding: 14px 16px; margin-bottom: 24px; border: 1.5px solid #E5E7EB; }
+  .product-img { width: 64px; height: 64px; background: linear-gradient(135deg, #DBEAFE, #EDE9FE); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+  .product-name { font-size: 15px; font-weight: 700; color: #1A202C; }
+  .product-tag { font-size: 11px; color: #7C3AED; font-weight: 600; background: #EDE9FE; padding: 2px 8px; border-radius: 20px; display: inline-block; margin-top: 4px; }
+  .stars-select { display: flex; gap: 6px; margin-bottom: 20px; }
+  .star-btn { font-size: 28px; cursor: pointer; color: #F59E0B; }
+  .prompt-box { background: #EDE9FE; border-left: 4px solid #7C3AED; border-radius: 0 8px 8px 0; padding: 12px 14px; margin-bottom: 14px; }
+  .prompt-box p { font-size: 13px; color: #5B21B6; font-style: italic; }
+  textarea { width: 100%; border: 1.5px solid #E5E7EB; border-radius: 8px; padding: 12px 14px; font-size: 14px; resize: vertical; min-height: 110px; font-family: inherit; color: #1A202C; }
+  .quality-meter { margin: 12px 0 20px; }
+  .quality-label { display: flex; justify-content: space-between; font-size: 12px; color: #6B7280; margin-bottom: 6px; }
+  .quality-track { height: 8px; background: #E5E7EB; border-radius: 4px; overflow: hidden; }
+  .quality-fill { height: 100%; width: 68%; background: linear-gradient(90deg, #7C3AED, #10B981); border-radius: 4px; }
+  .upload-area { border: 2px dashed #C4B5FD; border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px; background: #FAFAFE; }
+  .upload-area p { font-size: 13px; color: #6B7280; }
+  .upload-area strong { color: #7C3AED; }
+  .ftc-box { background: #FEF3C7; border: 1.5px solid #FCD34D; border-radius: 8px; padding: 12px 14px; margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start; }
+  .ftc-box p { font-size: 12px; color: #78350F; line-height: 1.5; }
+  .checkbox { width: 16px; height: 16px; accent-color: #7C3AED; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── SCREEN 3: Dashboard ── */
+  .dash-header { background: linear-gradient(135deg, #1E1B4B 0%, #2D1B69 100%); padding: 24px 28px; color: #fff; }
+  .dash-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .dash-sub { font-size: 13px; color: #A78BFA; }
+  .dash-countdown { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 18px; display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; }
+  .countdown-num { font-size: 24px; font-weight: 800; color: #FCD34D; }
+  .countdown-label { font-size: 12px; color: #C4B5FD; }
+  .dash-body { padding: 24px 28px; }
+  .progress-card { background: #F9FAFB; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1.5px solid #E5E7EB; }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .progress-title { font-size: 14px; font-weight: 700; color: #1A202C; }
+  .progress-count { font-size: 28px; font-weight: 800; color: #7C3AED; }
+  .progress-track { height: 12px; background: #E5E7EB; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
+  .progress-fill { height: 100%; width: 93%; background: linear-gradient(90deg, #7C3AED, #10B981); border-radius: 6px; }
+  .progress-legend { display: flex; gap: 16px; font-size: 11px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+  .reviewers-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  .reviewers-table th { font-size: 11px; font-weight: 700; color: #6B7280; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; border-bottom: 2px solid #E5E7EB; text-align: left; }
+  .reviewers-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid #F3F4F6; }
+  .status-pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .status-approved { background: #D1FAE5; color: #065F46; }
+  .status-pending { background: #FEF3C7; color: #92400E; }
+  .status-delayed { background: #FEE2E2; color: #991B1B; }
+  .alert-box { background: #FEF3C7; border: 1.5px solid #FCD34D; border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start; }
+  .alert-box p { font-size: 13px; color: #78350F; }
+  .btn-launch { background: linear-gradient(135deg, #7C3AED, #5B21B6); color: #fff; border: none; border-radius: 10px; padding: 16px 32px; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; letter-spacing: 0.3px; }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+  .stat-card { background: #F9FAFB; border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 16px; text-align: center; }
+  .stat-num { font-size: 24px; font-weight: 800; color: #1E1B4B; }
+  .stat-label { font-size: 11px; color: #9CA3AF; margin-top: 2px; }
+
+  hr.divider { border: none; border-top: 3px solid #E5E7EB; margin: 48px 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 1: Merchant Campaign Setup
+════════════════════════════════════════════════════ -->
+<div class="screen-label">Screen 1 of 3 — Merchant Flow: Create Seeding Campaign</div>
+<div class="screen">
+  <div class="topbar">
+    <span class="topbar-logo">yotpo <span>ignite</span></span>
+    <span class="topbar-sep">›</span>
+    <span class="topbar-page">New Seeding Campaign</span>
+  </div>
+
+  <div class="cols">
+    <!-- LEFT: Campaign Setup Form -->
+    <div class="col col-left">
+      <div class="section-title">⚙️ Campaign Setup <span class="badge">Step 1 of 2</span></div>
+
+      <div class="ai-box">
+        <div class="ai-box-title">🤖 Ignite Agent — Product Analysis Complete</div>
+        <p>Detected attributes: <strong>Trail Running · Waterproof Membrane · Lightweight · Size-Inclusive.</strong> Matching reviewers with affinity for outdoor footwear, comfort, and fit accuracy.</p>
+      </div>
+
+      <div class="form-group">
+        <label>Product (Shopify Draft)</label>
+        <input class="input" type="text" value="Trail Runner Pro X — SKU #TRP-2024-09" readonly>
+        <div class="hint">Connected from Shopify Draft status · Product ID: #8821</div>
+      </div>
+
+      <div class="form-group">
+        <label>Launch Date & Time</label>
+        <input class="input" type="text" value="June 1, 2025 · 09:00 AM">
+        <div class="hint">✓ Reviews will be published automatically at launch moment (T-0) · Recommended minimum lead time: 14 days · Extend up to 30+ days for larger drops</div>
+      </div>
+
+      <div class="form-group">
+        <label>Target Reviewer Pool Size</label>
+        <input class="input" type="text" value="35 reviewers">
+        <div class="hint">Expected yield: ~30 approved reviews (85% submission rate) · Adjustable: increase or decrease based on your review target</div>
+      </div>
+
+      <div class="form-group">
+        <label>Incentive — Free Product Drop</label>
+        <div style="display:flex; gap:10px; margin-top:4px;">
+          <div style="flex:1; border:2px solid #7C3AED; border-radius:8px; padding:10px 14px; background:#EDE9FE; font-size:14px; font-weight:600; color:#6D28D9; text-align:center; cursor:pointer;">✓ Yes</div>
+          <div style="flex:1; border:1.5px solid #E5E7EB; border-radius:8px; padding:10px 14px; background:#F9FAFB; font-size:14px; color:#9CA3AF; text-align:center; cursor:pointer;">No</div>
+        </div>
+        <div class="hint">Product shipped free to all reviewers who opt in</div>
+      </div>
+
+      <div class="form-group">
+        <label>Incentive — VIP Loyalty Points</label>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:4px;">
+          <input id="pointsInput" class="input" type="range" min="100" max="1000" step="50" value="500"
+            style="flex:1; accent-color:#7C3AED; height:6px;"
+            oninput="document.getElementById('pointsVal').textContent=this.value; document.getElementById('dollarVal').textContent='~$'+(Math.round(this.value/25));">
+          <div style="text-align:center; min-width:90px;">
+            <div id="pointsVal" style="font-size:20px; font-weight:800; color:#7C3AED;">500</div>
+            <div id="dollarVal" style="font-size:12px; color:#6B7280;">~$20</div>
+          </div>
+        </div>
+        <div class="hint">100 pts = ~$4 · 500 pts = ~$20 · 1,000 pts = ~$40 · Conversion rate set in your Loyalty program settings · Deposited automatically on review approval</div>
+      </div>
+
+      <button class="btn-outline">← Back</button>
+      <button class="btn-primary">Approve Pool & Start Campaign →</button>
+    </div>
+
+    <!-- RIGHT: AI Reviewer Pool -->
+    <div class="col">
+      <div class="section-title">🎯 AI-Selected Reviewer Pool <span class="badge">35 Matched</span></div>
+
+      <div class="reviewer-item">
+        <div class="reviewer-avatar" style="background:#7C3AED">S</div>
+        <div class="reviewer-info">
+          <div class="reviewer-name">Sarah M. &nbsp;<span class="star">★★★★★</span></div>
+          <div class="reviewer-meta">Gold Tier · 24 reviews · Outdoor Footwear · Review Score: 94%</div>
+          <div class="richness-bar"><div class="richness-fill" style="width:94%"></div></div>
+        </div>
+        <div class="reviewer-actions"><button class="btn-swap">Swap</button></div>
+      </div>
+
+      <div class="reviewer-item">
+        <div class="reviewer-avatar" style="background:#059669">J</div>
+        <div class="reviewer-info">
+          <div class="reviewer-name">James K. &nbsp;<span class="star">★★★★★</span></div>
+          <div class="reviewer-meta">Platinum Tier · 31 reviews · Running Gear · Review Score: 89%</div>
+          <div class="richness-bar"><div class="richness-fill" style="width:89%"></div></div>
+        </div>
+        <div class="reviewer-actions"><button class="btn-swap">Swap</button></div>
+      </div>
+
+      <div class="reviewer-item">
+        <div class="reviewer-avatar" style="background:#DC2626">A</div>
+        <div class="reviewer-info">
+          <div class="reviewer-name">Aisha R. &nbsp;<span class="star">★★★★☆</span></div>
+          <div class="reviewer-meta">Gold Tier · 18 reviews · Athletic Wear · Review Score: 82%</div>
+          <div class="richness-bar"><div class="richness-fill" style="width:82%"></div></div>
+        </div>
+        <div class="reviewer-actions"><button class="btn-swap">Swap</button></div>
+      </div>
+
+      <div class="reviewer-item">
+        <div class="reviewer-avatar" style="background:#D97706">T</div>
+        <div class="reviewer-info">
+          <div class="reviewer-name">Tom L. &nbsp;<span class="star">★★★★★</span></div>
+          <div class="reviewer-meta">Silver Tier · 12 reviews · Trail Hiking · Review Score: 78%</div>
+          <div class="richness-bar"><div class="richness-fill" style="width:78%"></div></div>
+        </div>
+        <div class="reviewer-actions"><button class="btn-swap">Swap</button></div>
+      </div>
+
+      <div style="text-align:center; padding: 10px 0; font-size:12px; color:#9CA3AF;">
+        + 31 more reviewers · <a href="#" style="color:#7C3AED">View all</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 2: Smart Review Form (Reviewer View)
+════════════════════════════════════════════════════ -->
+<div class="screen-label">Screen 2 of 3 — Reviewer View: Smart Review Form</div>
+<div class="screen">
+  <div class="topbar">
+    <span class="topbar-logo">yotpo <span>ignite</span></span>
+    <span class="topbar-sep">›</span>
+    <span class="topbar-page">Share Your Exclusive Review</span>
+  </div>
+
+  <div class="review-form-wrap">
+    <div class="product-preview">
+      <div class="product-img">👟</div>
+      <div>
+        <div class="product-name">Trail Runner Pro X</div>
+        <div class="product-tag">🔒 VIP Early Access — Embargoed until June 1</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Overall Rating</label>
+      <div class="stars-select">
+        <span class="star-btn">★</span>
+        <span class="star-btn">★</span>
+        <span class="star-btn">★</span>
+        <span class="star-btn">★</span>
+        <span class="star-btn" style="color:#D1D5DB">★</span>
+      </div>
+    </div>
+
+    <div class="section-title" style="font-size:13px; margin-bottom:12px;">🤖 Ignite is asking you specifically about:</div>
+
+    <div class="prompt-box">
+      <p>"How did the shoe's sizing compare to your usual size? Did it run true to size or did you need to go up/down?"</p>
+    </div>
+    <div class="prompt-box">
+      <p>"Did the waterproof membrane perform as expected? Describe a specific scenario where you tested it."</p>
+    </div>
+
+    <div class="form-group" style="margin-top:16px;">
+      <label>Your Review <span style="color:#7C3AED">*</span></label>
+      <textarea placeholder="Share your honest experience with the Trail Runner Pro X...">The shoe fits true to size — I wear a US 10 and the 10 was perfect. The waterproofing held up surprisingly well during a rainy morning trail run, my socks stayed completely dry even after splashing through...</textarea>
+    </div>
+
+    <div class="quality-meter">
+      <div class="quality-label">
+        <span>Review Quality Score</span>
+        <span style="color:#7C3AED; font-weight:700">Good — 187 / 150 chars ✓</span>
+      </div>
+      <div class="quality-track"><div class="quality-fill"></div></div>
+    </div>
+
+    <div class="upload-area">
+      <div style="font-size:32px; margin-bottom:8px;">📸</div>
+      <p><strong>Upload at least 1 photo or video</strong> of your product</p>
+      <p style="margin-top:4px; font-size:11px;">Required to submit · AI scans for authenticity · Max 50MB</p>
+      <div style="margin-top:12px; display:flex; gap:10px; justify-content:center;">
+        <div style="width:64px;height:64px;border-radius:8px;background:linear-gradient(135deg,#DBEAFE,#EDE9FE);display:flex;align-items:center;justify-content:center;font-size:24px;">👟</div>
+        <div style="width:64px;height:64px;border-radius:8px;background:linear-gradient(135deg,#D1FAE5,#DBEAFE);display:flex;align-items:center;justify-content:center;font-size:24px;">🏃</div>
+        <div style="width:64px;height:64px;border-radius:8px;border:2px dashed #C4B5FD;display:flex;align-items:center;justify-content:center;color:#C4B5FD;font-size:24px;">+</div>
+      </div>
+    </div>
+
+    <div class="ftc-box">
+      <input type="checkbox" class="checkbox" checked>
+      <p><strong>FTC Disclosure:</strong> I confirm I received this product free of charge as part of the brand's VIP Seeding Program. My review reflects my honest, independent opinion.</p>
+    </div>
+
+    <div style="background:#FEE2E2; border:1.5px solid #FECACA; border-radius:8px; padding:12px 14px; margin-bottom:20px; font-size:12px; color:#991B1B; display:flex; gap:8px;">
+      <span>⚠️</span>
+      <span>Received a damaged or wrong-size product? <strong><a href="#" style="color:#991B1B">Report an Issue</a></strong> — your reviewer standing is protected.</span>
+    </div>
+
+    <button class="btn-primary" style="font-size:16px; padding:16px;">Submit My Review 🚀</button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     SCREEN 3: Campaign Status Dashboard (T-24)
+════════════════════════════════════════════════════ -->
+<div class="screen-label">Screen 3 of 3 — Merchant Dashboard: T-24 Hour Lock Window</div>
+<div class="screen">
+  <div class="dash-header">
+    <div class="dash-title">Seeding Campaign: Trail Runner Pro X</div>
+    <div class="dash-sub">Launching June 1, 2025 · 09:00 AM EST</div>
+    <div class="dash-countdown">
+      <div>
+        <div class="countdown-num">23:41</div>
+        <div class="countdown-label">Hours to Launch</div>
+      </div>
+      <div style="color:#6D28D9; font-size:24px;">|</div>
+      <div>
+        <div class="countdown-num" style="color:#10B981">28/30</div>
+        <div class="countdown-label">Reviews Ready</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dash-body">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" style="color:#10B981">28</div>
+        <div class="stat-label">Approved Reviews</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:#F59E0B">4</div>
+        <div class="stat-label">Awaiting Submission</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:#DC2626">3</div>
+        <div class="stat-label">Shipment Delays ⚠️</div>
+      </div>
+    </div>
+
+    <div class="progress-card">
+      <div class="progress-header">
+        <div class="progress-title">Campaign Progress to Target (30 reviews)</div>
+        <div class="progress-count">93%</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <div class="progress-legend">
+        <span><span class="legend-dot" style="background:#7C3AED"></span>Approved (28)</span>
+        <span><span class="legend-dot" style="background:#F59E0B"></span>Pending (4)</span>
+        <span><span class="legend-dot" style="background:#E5E7EB"></span>Target gap (2)</span>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      <span style="font-size:20px">⚠️</span>
+      <p><strong>Logistics Risk Alert:</strong> 3 shipments are delayed (UPS tracking). Ignite has automatically activated 3 backup reviewers from your pre-approved waitlist. No action required.</p>
+    </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num" style="color:#10B981">28</div>
+          <div class="stat-label">Reviews Ready</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="color:#F59E0B">4</div>
+          <div class="stat-label">Awaiting</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="color:#DC2626">3</div>
+          <div class="stat-label">Delayed ⚠️</div>
+        </div>
+      </div>
+
+      <div class="progress-card">
+        <div class="progress-header">
+          <div class="progress-title">Progress to Target (30 reviews)</div>
+          <div class="progress-count">93%</div>
+        </div>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <div class="progress-legend">
+          <span><span class="legend-dot" style="background:#7C3AED"></span>Ready (28)</span>
+          <span><span class="legend-dot" style="background:#F59E0B"></span>Pending (4)</span>
+          <span><span class="legend-dot" style="background:#E5E7EB"></span>Gap (2)</span>
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <span style="font-size:20px">⚠️</span>
+        <p><strong>Logistics Risk Alert:</strong> 3 shipments delayed. Ignite activated 3 backup reviewers automatically.</p>
+      </div>
+
+      <table class="reviewers-table">
+        <thead>
+          <tr>
+            <th>Reviewer</th>
+            <th>Tier</th>
+            <th>Opt-In</th>
+            <th>Delivery</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Sarah M.</strong></td>
+            <td>🥇 Platinum</td>
+            <td><span class="status-pill status-approved">✓</span></td>
+            <td>Delivered</td>
+            <td><span class="status-pill status-approved">✓ Ready</span></td>
+          </tr>
+          <tr>
+            <td><strong>James K.</strong></td>
+            <td>🥇 Platinum</td>
+            <td><span class="status-pill status-approved">✓</span></td>
+            <td>Delivered</td>
+            <td><span class="status-pill status-approved">✓ Ready</span></td>
+          </tr>
+          <tr>
+            <td><strong>Aisha R.</strong></td>
+            <td>🥈 Gold</td>
+            <td><span class="status-pill status-approved">✓</span></td>
+            <td>Delivered</td>
+            <td><span class="status-pill status-pending">⏳ Awaiting</span></td>
+          </tr>
+          <tr>
+            <td><strong>Marcus D.</strong></td>
+            <td>🥈 Gold</td>
+            <td><span class="status-pill status-approved">✓</span></td>
+            <td><span style="color:#DC2626">📦 Delayed</span></td>
+            <td><span class="status-pill status-delayed">Backup</span></td>
+          </tr>
+          <tr>
+            <td style="color:#9CA3AF; font-style:italic" colspan="5">+ 31 more...</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Review Preview - Single Column Layout -->
+      <div style="background:#F9FAFB; border:1.5px solid #E5E7EB; border-radius:12px; overflow:hidden; margin-bottom:20px;">
+        <div style="padding:14px 16px; border-bottom:1px solid #E5E7EB; display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:13px; font-weight:700; color:#1A202C;">Review Preview</div>
+          <div style="font-size:11px; color:#7C3AED; font-weight:600; background:#EDE9FE; padding:3px 8px; border-radius:20px;">Read Only</div>
+        </div>
+        <div style="padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+
+          <div style="background:#fff; border:1.5px solid #E5E7EB; border-radius:10px; padding:14px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span style="font-weight:700; font-size:13px;">Sarah M.</span>
+              <span style="color:#F59E0B; font-size:13px;">★★★★★</span>
+            </div>
+            <p style="font-size:12px; color:#4B5563; line-height:1.6;">"Fits true to size. Waterproofing held perfectly during a rainy trail run — socks stayed dry. Great traction on loose gravel."</p>
+            <div style="margin-top:8px; display:flex; gap:6px;">
+              <div style="width:48px; height:48px; background:linear-gradient(135deg,#DBEAFE,#EDE9FE); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px;">👟</div>
+              <div style="width:48px; height:48px; background:linear-gradient(135deg,#D1FAE5,#DBEAFE); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px;">🌧️</div>
+            </div>
+          </div>
+
+          <div style="background:#fff; border:1.5px solid #E5E7EB; border-radius:10px; padding:14px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span style="font-weight:700; font-size:13px;">James K.</span>
+              <span style="color:#F59E0B; font-size:13px;">★★★★☆</span>
+            </div>
+            <p style="font-size:12px; color:#4B5563; line-height:1.6;">"Great grip on wet surfaces. Runs slightly narrow — recommend sizing up if you have wide feet. Otherwise excellent quality."</p>
+            <div style="margin-top:8px;">
+              <div style="width:48px; height:48px; background:linear-gradient(135deg,#FEF3C7,#DBEAFE); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px;">🏃</div>
+            </div>
+          </div>
+
+          <div style="background:#fff; border:1.5px solid #E5E7EB; border-radius:10px; padding:14px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span style="font-weight:700; font-size:13px;">Aisha R.</span>
+              <span style="color:#F59E0B; font-size:13px;">★★★★★</span>
+            </div>
+            <p style="font-size:12px; color:#4B5563; line-height:1.6;">"Lightweight and breathable. Tested on a 10km run in light rain — no discomfort. The grip is impressive on both wet and dry terrain."</p>
+          </div>
+
+          <div style="background:#fff; border:1.5px solid #E5E7EB; border-radius:10px; padding:14px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <span style="font-weight:700; font-size:13px;">Tom L.</span>
+              <span style="color:#F59E0B; font-size:13px;">★★★☆☆</span>
+            </div>
+            <p style="font-size:12px; color:#4B5563; line-height:1.6;">"Decent shoe but the laces feel cheap compared to the price point. Waterproofing works well but the insole could use more cushioning for longer runs."</p>
+          </div>
+
+        </div>
+        <div style="padding:12px 16px; border-top:1px solid #E5E7EB; background:#FAFAFA; font-size:12px; color:#6B7280; display:flex; justify-content:space-between;">
+          <span>+ 24 more reviews · 28 total · Avg: <strong style="color:#F59E0B;">4.6★</strong></span>
+          <span style="color:#7C3AED; font-weight:600;">🔒 Cannot suppress individual reviews</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <button class="btn-launch" style="margin-bottom:12px;">🚀 Confirm Launch: Publish 28 Reviews at T-0</button>
+      <button class="btn-outline" style="margin-top:0; margin-bottom:12px;">✏️ Edit Campaign: Add Reviewers / Adjust Timeline</button>
+      <button style="width:100%; background:none; border:2px solid #DC2626; color:#DC2626; border-radius:8px; padding:12px; font-size:14px; font-weight:600; cursor:pointer;">✕ Cancel Campaign (Audit Logged)</button>
+
+  </div>
+</div>
+
+</div>
+</body>
+</html>

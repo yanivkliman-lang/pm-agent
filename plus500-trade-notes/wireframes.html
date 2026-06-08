@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plus500 · Trade Notes · Wireframes</title>
+<style>
+  :root{
+    --navy:#0a2540; --navy2:#13315c; --ink:#1d2b3a; --muted:#6b7a8d;
+    --line:#dfe5ec; --bg:#eef1f5; --card:#ffffff;
+    --buy:#0a6cff; --sell:#e23b3b;
+    --brand:#0a6cff; --brand-soft:#e7f1ff; --brand-ink:#0a4bb0;
+    --good:#0f9d58; --bad:#e23b3b;
+    --shadow:0 10px 30px rgba(13,38,76,.10);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Segoe UI','Assistant','Helvetica Neue',Arial,sans-serif; line-height:1.5}
+  .wrap{max-width:1120px; margin:0 auto; padding:38px 24px 70px}
+
+  .masthead{background:linear-gradient(135deg,var(--navy),var(--navy2));
+    color:#fff; border-radius:16px; padding:28px 32px; box-shadow:var(--shadow)}
+  .masthead .kicker{font-size:12px; letter-spacing:.12em; text-transform:uppercase; opacity:.7}
+  .masthead h1{margin:7px 0 6px; font-size:27px}
+  .masthead p{margin:0; max-width:740px; opacity:.92; font-size:14px}
+
+  .flow{display:flex; gap:9px; align-items:center; flex-wrap:wrap; margin:22px 2px 4px; color:var(--muted); font-size:14px}
+  .flow b{color:var(--ink)}
+  .flow .arrow{color:var(--brand); font-weight:700}
+
+  .screen{margin-top:34px}
+  .screen-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+  .screen-num{background:var(--brand); color:#fff; font-weight:700; font-size:14px;
+    width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex:0 0 auto}
+  .screen-title{font-size:20px; font-weight:700; margin:0}
+
+  .layout{display:grid; grid-template-columns:1fr 270px; gap:22px; align-items:start}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}}
+
+  .frame{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:var(--shadow)}
+  .chrome{background:#f3f5f8; border-bottom:1px solid var(--line); padding:10px 14px; display:flex; align-items:center; gap:8px}
+  .dot{width:11px; height:11px; border-radius:50%}
+  .dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+  .urlbar{margin-inline-start:10px; background:#fff; border:1px solid var(--line); border-radius:7px; padding:4px 12px; font-size:12px; color:var(--muted); flex:1}
+
+  .appbar{background:var(--navy); color:#fff; padding:10px 16px; display:flex; align-items:center; gap:16px; font-size:13px}
+  .logo{font-weight:800}
+  .logo span{color:#48b0ff}
+  .appbar .spacer{flex:1}
+  .balance{background:rgba(255,255,255,.1); padding:5px 11px; border-radius:7px}
+  .gear{opacity:.85; font-size:16px}
+
+  .appbody{display:flex; min-height:300px}
+  .sidemenu{width:180px; background:#0d2c4f; color:#cfe0f0; padding:8px 0; flex:0 0 auto; font-size:13px}
+  .sidemenu .mi{padding:10px 16px; display:flex; gap:9px; align-items:center; opacity:.82}
+  .sidemenu .mi.on{background:rgba(72,176,255,.18); color:#fff; opacity:1; border-inline-start:3px solid #48b0ff; font-weight:700}
+  .sidemenu .mi .mic{width:16px; text-align:center}
+  .appmain{flex:1; min-width:0}
+
+  .stage{padding:22px; background:#f7f9fc; min-height:120px}
+  .stage.center{display:flex; align-items:center; justify-content:center}
+  .stage.tworow{display:flex; gap:18px; align-items:center; justify-content:center}
+
+  /* Order ticket */
+  .ticket{background:#fff; border:1px solid var(--line); border-radius:12px; width:350px; box-shadow:0 6px 18px rgba(13,38,76,.06); overflow:hidden}
+  .ticket-head{padding:13px 16px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center}
+  .instr{font-weight:700}
+  .instr small{display:block; color:var(--muted); font-weight:400; font-size:12px}
+  .cfd-tag{background:#eaf1ff; color:var(--brand-ink); font-size:10px; font-weight:700; border-radius:5px; padding:2px 6px; margin-inline-start:6px}
+  .price{font-weight:700; font-size:18px}
+  .ticket-body{padding:13px 16px}
+  .row{display:flex; justify-content:space-between; align-items:center; margin:8px 0}
+  .row label{color:var(--muted); font-size:13px}
+  .inp{border:1px solid var(--line); border-radius:8px; padding:6px 10px; min-width:96px; text-align:start; font-size:13px; background:#fcfdff}
+  .lev{color:var(--brand-ink); font-weight:700; font-size:12px; background:#eaf1ff; border-radius:6px; padding:2px 8px}
+  .trow{display:flex; justify-content:space-between; align-items:center; margin:8px 0}
+  .trow .tl{font-size:13px}
+  .trow .tright{display:flex; align-items:center; gap:9px}
+  .tgl{width:38px; height:21px; border-radius:999px; background:var(--brand); position:relative; flex:0 0 auto}
+  .tgl::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2.5px;inset-inline-end:2.5px}
+  .tval{border:1px solid var(--line);border-radius:7px;padding:4px 9px;font-size:12.5px;min-width:72px;text-align:start;background:#fcfdff}
+  .adv{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:10px 0;font-weight:600;font-size:13px}
+  .adv .chev{color:var(--muted)}
+  .buy-sell{display:flex; gap:10px; margin-top:12px}
+  .btn{flex:1; border:none; border-radius:9px; padding:11px; font-weight:700; color:#fff; font-size:14px}
+  .btn.sell{background:var(--sell)} .btn.buy{background:linear-gradient(90deg,#0a6cff,#3aa0ff)}
+
+  /* Note block */
+  .note-block{margin-top:10px; border:1.5px solid var(--brand); background:var(--brand-soft); border-radius:10px; padding:12px}
+  .nb-title{font-weight:700; font-size:13px; color:var(--brand-ink); display:flex; align-items:center; gap:6px; margin-bottom:8px}
+  .new-flag{background:var(--brand); color:#fff; font-size:10px; padding:2px 7px; border-radius:999px}
+  .note-area{border:1px solid #bcd5fa; border-radius:8px; background:#fff; padding:10px 11px; min-height:48px; font-size:13px; color:#3a4a5c}
+  .note-area .ph{color:#9fb2c9}
+  .helper{margin-top:8px; font-size:11.5px; color:var(--muted)}
+  .chips{display:flex; gap:7px; flex-wrap:wrap; margin-top:6px}
+  .chip{border:1px solid #bcd5fa; background:#fff; color:var(--brand-ink); border-radius:999px; padding:5px 11px; font-size:12px; font-weight:600}
+  .chip.sel{background:var(--brand); color:#fff; border-color:var(--brand)}
+
+  /* Open position + thread */
+  .position{background:#fff; border:1px solid var(--line); border-radius:12px; width:400px; box-shadow:0 6px 18px rgba(13,38,76,.06); overflow:hidden}
+  .pos-head{padding:13px 16px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center}
+  .pos-head .open-flag{font-size:11px; color:var(--good); font-weight:700; background:#e7f7ee; border-radius:5px; padding:2px 7px; margin-inline-start:6px}
+  .pos-body{padding:14px 16px}
+  .thread .tnode{display:flex; gap:10px; padding:7px 0; align-items:flex-start}
+  .thread .stg{flex:0 0 auto; width:26px; height:26px; border-radius:50%; background:var(--brand-soft); display:flex; align-items:center; justify-content:center; font-size:13px}
+  .thread .tcontent{flex:1}
+  .thread .stage-label{font-size:11px; color:var(--muted); font-weight:700}
+  .thread .stage-text{font-size:13px; color:#3a4a5c}
+  .thread .tnode.add .tcontent{border:1.5px dashed var(--brand); border-radius:8px; padding:9px 11px; color:var(--brand-ink); font-weight:700; font-size:12.5px; background:#f6faff}
+
+  /* AI insights panel */
+  .ai-panel{background:var(--brand-soft); border:1px solid #bcd5fa; border-radius:11px; padding:14px 16px; margin-bottom:14px}
+  .ai-h{font-size:12.5px; color:var(--brand-ink); font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:6px}
+  .ai-item{font-size:13px; color:#22324a; margin:6px 0; padding-inline-start:22px; position:relative; line-height:1.45}
+  .ai-item .ico{position:absolute; inset-inline-start:0; top:1px; font-size:12px}
+  .ai-item.rec{background:#fff; border:1px solid #bcd5fa; border-radius:8px; padding:8px 30px 8px 11px; margin:8px 0}
+  .ai-item.rec b{color:var(--brand-ink)}
+  .ai-item.rec .ico{inset-inline-start:9px; top:9px}
+
+  /* Reminder card */
+  .loop-card{background:#fff; border:2px solid var(--brand); border-radius:12px; width:320px; box-shadow:0 8px 22px rgba(10,108,255,.18); overflow:hidden}
+  .loop-top{background:var(--brand); color:#fff; padding:11px 15px; font-weight:700; font-size:14px}
+  .loop-body{padding:15px}
+  .your-words{background:var(--brand-soft); border-inline-start:4px solid var(--brand); border-radius:9px; padding:12px 14px; margin-bottom:12px}
+  .your-words .wlabel{font-size:11.5px; color:var(--brand-ink); font-weight:700; margin-bottom:6px}
+  .your-words .quote{font-size:14px; color:#22324a; font-style:italic; line-height:1.55}
+  .loop-actions{display:flex; gap:8px}
+  .l-btn{flex:1; border-radius:8px; padding:9px; font-weight:700; font-size:13px; border:1px solid var(--line)}
+  .l-btn.write{background:var(--brand); color:#fff; border:none}
+  .l-btn.x{background:#fff; color:var(--muted); flex:0 0 44px}
+
+  /* My notes list */
+  .notes-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px}
+  .notes-head h3{margin:0; font-size:18px}
+  .filter{border:1px solid var(--line); border-radius:8px; padding:6px 12px; font-size:13px; background:#fff; color:var(--muted)}
+  .tcard{background:#fff; border:1px solid var(--line); border-radius:11px; padding:13px 16px; margin-bottom:10px}
+  .tc-top{display:flex; justify-content:space-between; align-items:center}
+  .tc-instr{font-weight:700}
+  .tc-instr small{color:var(--muted); font-weight:400; font-size:11px}
+  .tc-date{color:var(--muted); font-size:12px; margin-inline-start:8px; font-weight:400}
+  .pnl{font-weight:700}
+  .pnl.up{color:var(--good)} .pnl.down{color:var(--bad)}
+  .note-line{margin-top:7px; font-size:12.5px; color:#3a4a5c; display:flex; gap:7px}
+  .note-line b{color:var(--muted); font-weight:600; flex:0 0 54px; font-size:11.5px}
+
+  /* Intro */
+  .intro{background:#fff; border-radius:14px; max-width:480px; margin:0 auto; padding:30px; text-align:center}
+  .intro .ic{font-size:38px}
+  .intro h2{margin:8px 0 4px; font-size:24px}
+  .intro h2 span{color:var(--brand)}
+  .intro .lead{color:#3a4a5c; font-size:15px; margin-bottom:18px}
+  .steps{text-align:start; background:#f7f9fc; border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:16px}
+  .steps .st{display:flex; gap:11px; margin:10px 0; font-size:14px; align-items:flex-start}
+  .steps .n{background:var(--brand); color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; flex:0 0 auto}
+  .reassure{color:var(--muted); font-size:13px; margin-bottom:16px}
+  .cta{background:var(--brand); color:#fff; border:none; border-radius:9px; padding:12px 26px; font-weight:700; font-size:15px}
+
+  /* Settings */
+  .settings{background:#fff; border-radius:12px; max-width:450px; margin:0 auto; border:1px solid var(--line)}
+  .set-row{display:flex; justify-content:space-between; align-items:center; padding:14px 18px; border-bottom:1px solid var(--line)}
+  .set-row:last-child{border-bottom:none}
+  .set-row .lbl{font-weight:600; font-size:14px}
+  .set-row .lbl small{display:block; color:var(--muted); font-weight:400; font-size:12px; margin-top:2px}
+  .toggle{width:46px; height:26px; border-radius:999px; background:var(--good); position:relative; flex:0 0 auto}
+  .toggle.off{background:#c9d2dc}
+  .toggle::after{content:""; position:absolute; width:20px; height:20px; border-radius:50%; background:#fff; top:3px; inset-inline-end:3px}
+  .toggle.off::after{inset-inline-end:auto; inset-inline-start:3px}
+
+  .notes-col{padding-top:4px}
+  .ann{background:#f7f9fc; border:1px solid var(--line); border-inline-start:4px solid var(--brand); border-radius:10px; padding:13px 15px; font-size:13px; color:#3a4a5c}
+  .ann b{color:var(--brand-ink)}
+
+  .footer{margin-top:46px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="kicker">Plus500 CFD · Home Assignment</div>
+    <h1>📝 Trade Notes · Wireframes</h1>
+    <p>הערה אחת שמלווה כל עסקה לאורך כל חייה (תכנון, כניסה, תוך כדי, סגירה, סיכום), ומעליה AI שקורא את ההערות
+       ונותן לסוחר תובנות על עצמו. משולב בכלי המסחר, מסייע ולא כופה, וגמיש דרך הגדרות פשוטות. מסכי Desktop.</p>
+  </div>
+
+  <div class="flow">
+    <b>שלוש שכבות:</b>
+    <span>חוט ההערה של העסקה</span><span class="arrow">←</span>
+    <span>AI שמפיק תובנות מההערות</span><span class="arrow">←</span>
+    <span>שליטה דרך הגדרות פשוטות</span>
+  </div>
+
+  <!-- SCREEN 0 INTRO -->
+  <div class="screen">
+    <div class="screen-head"><div class="screen-num">0</div><h2 class="screen-title">פתיחה: למה בכלל לתעד</h2></div>
+    <div class="layout">
+      <div class="frame">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="urlbar">app.plus500.com</span></div>
+        <div class="stage center">
+          <div class="intro">
+            <div class="ic">📝</div>
+            <h2>Trade <span>Notes</span></h2>
+            <div class="lead">סוחרים שמתעדים ולומדים מהעסקאות שלהם משתפרים. מי שלא, חוזר על אותן טעויות בלי לשים לב.</div>
+            <div class="steps">
+              <div class="st"><span class="n">1</span><span>כתוב הערה על העסקה: לפני, תוך כדי, ואחרי.</span></div>
+              <div class="st"><span class="n">2</span><span>ה-AI קורא את ההערות שלך ולומד את הדפוסים שלך.</span></div>
+              <div class="st"><span class="n">3</span><span>הוא מזכיר לך את מה שלמדת, לפני הטעות הבאה.</span></div>
+            </div>
+            <div class="reassure">אופציונלי לגמרי. אתה קובע כמה הכלי נוכח, ממתג פשוט.</div>
+            <button class="cta">בוא נתחיל</button>
+          </div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <div class="ann">לסוחר מתחיל זה לא מובן מאליו. <b>מסך הפתיחה מסביר למה תיעוד ולמידה שווים</b>, בלי להטיף.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 1 ENTRY -->
+  <div class="screen">
+    <div class="screen-head"><div class="screen-num">1</div><h2 class="screen-title">כניסה: ההערה מתחילה</h2></div>
+    <div class="layout">
+      <div class="frame">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="urlbar">app.plus500.com/trade</span></div>
+        <div class="appbar"><span class="logo">Plus<span>500</span></span><span class="spacer"></span><span class="balance">יתרה: €3,420</span><span class="gear">⚙️</span></div>
+        <div class="stage center">
+          <div class="ticket">
+            <div class="ticket-head"><div class="instr">זהב <small>XAU/USD <span class="cfd-tag">CFD</span></small></div><div class="price">2,658.4</div></div>
+            <div class="ticket-body">
+              <div class="row"><label>סכום</label><span class="inp">1.00</span></div>
+              <div class="row"><label>מינוף</label><span class="lev">x20</span></div>
+              <div class="trow"><span class="tl">סגור ברווח</span><span class="tright"><span class="tval">2,678.0</span><span class="tgl"></span></span></div>
+              <div class="trow"><span class="tl">סגור בהפסד</span><span class="tright"><span class="tval">2,648.0</span><span class="tgl"></span></span></div>
+              <div class="adv"><span>מתקדם</span><span class="chev">‹</span></div>
+              <div class="note-block">
+                <div class="nb-title">📝 ההערה שלי <span class="new-flag">חדש</span></div>
+                <div class="note-area"><span class="ph">מה התוכנית? למה אני נכנס עכשיו?…</span></div>
+                <div class="helper">או סימון מהיר בלחיצה (לא חובה):</div>
+                <div class="chips"><span class="chip">ניתוח טכני</span><span class="chip">ניתוח פונדמנטלי</span><span class="chip">תחושה</span></div>
+              </div>
+              <div class="buy-sell"><button class="btn sell">מכירה</button><button class="btn buy">קנייה</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <div class="ann">כאן <b>מתחיל החוט של ההערה</b>, על מסך פתיחת העסקה הקיים. כתיבה חופשית, או לחיצה אחת.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2 DURING TRADE (thread) -->
+  <div class="screen">
+    <div class="screen-head"><div class="screen-num">2</div><h2 class="screen-title">תוך כדי עסקה: ההערה חיה עם העסקה</h2></div>
+    <div class="layout">
+      <div class="frame">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="urlbar">app.plus500.com/positions</span></div>
+        <div class="appbar"><span class="logo">Plus<span>500</span></span><span class="spacer"></span><span class="balance">יתרה: €3,420</span><span class="gear">⚙️</span></div>
+        <div class="stage center">
+          <div class="position">
+            <div class="pos-head">
+              <div class="instr">זהב <small>XAU/USD · CFD</small><span class="open-flag">פוזיציה פתוחה</span></div>
+              <div class="pnl up">+€42</div>
+            </div>
+            <div class="pos-body">
+              <div class="thread">
+                <div class="tnode"><div class="stg">📋</div><div class="tcontent"><div class="stage-label">תכנון</div><div class="stage-text">"חיכיתי להיפוך באזור 2,660."</div></div></div>
+                <div class="tnode"><div class="stg">▶️</div><div class="tcontent"><div class="stage-label">כניסה</div><div class="stage-text">"נכנסתי על היפוך ב-2,660, מחכה לאישור בנר."</div></div></div>
+                <div class="tnode add"><div class="stg">⏳</div><div class="tcontent">+ הוסף הערה עכשיו (המחיר מתקרב ליעד, מה אני עושה?)</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <div class="ann">זה החלק שחסר ביומנים רגילים. <b>אפשר להוסיף הערה בכל שלב, גם בזמן שהעסקה פתוחה.</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3 CLOSE + SUMMARY -->
+  <div class="screen">
+    <div class="screen-head"><div class="screen-num">3</div><h2 class="screen-title">סגירה וסיכום: מה קרה ומה למדתי</h2></div>
+    <div class="layout">
+      <div class="frame">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="urlbar">app.plus500.com/positions</span></div>
+        <div class="appbar"><span class="logo">Plus<span>500</span></span><span class="spacer"></span><span class="balance">יתרה: €3,360</span><span class="gear">⚙️</span></div>
+        <div class="stage center">
+          <div class="position">
+            <div class="pos-head"><div class="instr">סגרת עסקה: זהב <small>XAU/USD · CFD</small></div><div class="pnl down">−€84</div></div>
+            <div class="pos-body">
+              <div class="thread">
+                <div class="tnode"><div class="stg">▶️</div><div class="tcontent"><div class="stage-label">כניסה</div><div class="stage-text">"נכנסתי על היפוך ב-2,660, מחכה לאישור."</div></div></div>
+                <div class="tnode"><div class="stg">⏳</div><div class="tcontent"><div class="stage-label">תוך כדי</div><div class="stage-text">"ירד נגדי, החזקתי כי הייתי בטוח שיתהפך."</div></div></div>
+              </div>
+              <div class="note-block">
+                <div class="nb-title">📝 סגירה וסיכום <span class="new-flag">עכשיו</span></div>
+                <div class="helper">מה קרה? מה עבד, מה לא, ומה תעשה אחרת בפעם הבאה?</div>
+                <div class="note-area"><span class="ph">נכנסתי מוקדם מדי בלי לחכות לאישור. בפעם הבאה אחכה שהנר ייסגר…</span></div>
+                <div class="chips"><span class="chip sel">נכנסתי מוקדם</span><span class="chip">תחושה</span><span class="chip">לפי תוכנית</span></div>
+                <div class="buy-sell"><button class="btn" style="background:#fff;color:var(--muted);border:1px solid var(--line)">דלג</button><button class="btn buy">שמור הערה</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <div class="ann">הרגע הכי חשוב ללמידה. <b>כשהעסקה נסגרת, הסוחר כותב מה קרה ומה למד</b>, וזה משלים את חוט ההערה.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4 MY NOTES + AI -->
+  <div class="screen">
+    <div class="screen-head"><div class="screen-num">4</div><h2 class="screen-title">ההערות שלי + תובנות מה-AI</h2></div>
+    <div class="layout">
+      <div class="frame">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="urlbar">app.plus500.com/notes</span></div>
+        <div class="appbar"><span class="logo">Plus<span>500</span></span><span class="spacer"></span><span class="balance">יתרה: €3,360</span><span class="gear">⚙️</span></div>
+        <div class="appbody">
+          <div class="sidemenu">
+            <div class="mi"><span class="mic">📈</span>מסחר</div>
+            <div class="mi"><span class="mic">📂</span>פוזיציות פתוחות</div>
+            <div class="mi"><span class="mic">📕</span>פוזיציות סגורות</div>
+            <div class="mi on"><span class="mic">📝</span>ההערות שלי</div>
+            <div class="mi"><span class="mic">✨</span>+Insights</div>
+          </div>
+          <div class="appmain">
+            <div class="stage">
+              <div class="ai-panel">
+                <div class="ai-h">✨ מה ה-AI לומד מההערות שלך</div>
+                <div class="ai-item"><span class="ico">💡</span>רוב ההפסדים שלך מזכירים "תחושה" או כניסה מוקדמת מדי.</div>
+                <div class="ai-item"><span class="ico">💡</span>העסקאות הרווחיות שלך כמעט תמיד מזכירות שחיכית לאישור.</div>
+                <div class="ai-item rec"><span class="ico">✅</span><b>המלצה:</b> לפני כניסה להיפוך, חכה לנר אישור שנסגר. זה הדפוס שחזר בעסקאות המנצחות שלך.</div>
+                <div class="ai-item"><span class="ico">📈</span>החודש כתבת 14 הערות, ועסקאות ה"תחושה" ירדו מ-9 ל-3. אתה משתפר.</div>
+              </div>
+              <div class="notes-head"><h3>ההערות שלי</h3><span class="filter">החודש ▾</span></div>
+              <div class="tcard">
+                <div class="tc-top"><div><span class="tc-instr">זהב <small>XAU/USD · CFD</small></span><span class="tc-date">4 ביוני</span></div><span class="pnl down">−€84</span></div>
+                <div class="note-line"><b>כניסה:</b><span>"היפוך ב-2,660, תחושה שיחזור."</span></div>
+                <div class="note-line"><b>תוך כדי:</b><span>"ירד נגדי, מחזיק כי אני בטוח שיתהפך."</span></div>
+                <div class="note-line"><b>סיכום:</b><span>"נכנסתי מוקדם מדי. בפעם הבאה אחכה לאישור."</span></div>
+              </div>
+              <div class="tcard">
+                <div class="tc-top"><div><span class="tc-instr">US 500 <small>מדד · CFD</small></span><span class="tc-date">3 ביוני</span></div><span class="pnl up">+€142</span></div>
+                <div class="note-line"><b>כניסה:</b><span>"פריצה מעל התנגדות, חיכיתי לאישור בנר."</span></div>
+                <div class="note-line"><b>סיכום:</b><span>"התוכנית עבדה כשהייתי סבלני."</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <div class="ann">ה-AI קורא את ההערות שלך ומשקף דפוסים <b>עליך, לא על השוק</b>. כאן המתחיל רואה במו עיניו למה תיעוד שווה.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4 REMINDER -->
+  <div class="screen">
+    <div class="screen-head"><div class="screen-num">5</div><h2 class="screen-title">תזכורת חכמה: ההערה שלך חוזרת אליך</h2></div>
+    <div class="layout">
+      <div class="frame">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="urlbar">app.plus500.com/trade</span></div>
+        <div class="appbar"><span class="logo">Plus<span>500</span></span><span class="spacer"></span><span class="balance">יתרה: €3,360</span><span class="gear">⚙️</span></div>
+        <div class="stage tworow">
+          <div class="ticket">
+            <div class="ticket-head"><div class="instr">זהב <small>XAU/USD <span class="cfd-tag">CFD</span></small></div><div class="price">2,663.1</div></div>
+            <div class="ticket-body">
+              <div class="row"><label>סכום</label><span class="inp">1.00</span></div>
+              <div class="row"><label>מינוף</label><span class="lev">x20</span></div>
+              <div class="adv"><span>מתקדם</span><span class="chev">‹</span></div>
+              <div class="buy-sell"><button class="btn sell">מכירה</button><button class="btn buy">קנייה</button></div>
+            </div>
+          </div>
+          <div class="loop-card">
+            <div class="loop-top">💡 רגע, זה מוכר לך</div>
+            <div class="loop-body">
+              <div class="your-words">
+                <div class="wlabel">כתבת לעצמך בעסקה דומה על זהב:</div>
+                <div class="quote">"נכנסתי מוקדם מדי בלי לחכות לאישור. בפעם הבאה אחכה שהנר ייסגר."</div>
+              </div>
+              <div class="loop-actions"><button class="l-btn write">רשום הערה הפעם</button><button class="l-btn x">✕</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <div class="ann">ברגע דומה, ה-AI מחזיר לך את ההערה שכתבת. <b>בעדינות, לא חוסם.</b> כאן הסוחר מרגיש את הערך של התיעוד.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5 SETTINGS -->
+  <div class="screen">
+    <div class="screen-head"><div class="screen-num">6</div><h2 class="screen-title">הגדרות: הגמישות מגיעה מכאן</h2></div>
+    <div class="layout">
+      <div class="frame">
+        <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="urlbar">app.plus500.com/settings/trade-notes</span></div>
+        <div class="stage center">
+          <div class="settings">
+            <div class="set-row"><div class="lbl">Trade Notes<small>הכלי כולו</small></div><div class="toggle"></div></div>
+            <div class="set-row"><div class="lbl">שאלות מנחות<small>בקשת תכנון וסיכום, למי שרוצה הכוונה</small></div><div class="toggle"></div></div>
+            <div class="set-row"><div class="lbl">תובנות AI<small>תובנות אישיות מתוך ההערות שלך</small></div><div class="toggle"></div></div>
+            <div class="set-row"><div class="lbl">תזכורת חכמה<small>מחזירה את ההערה שלך ברגע דומה</small></div><div class="toggle"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="notes-col">
+        <div class="ann"><b>אותו כלי, מינימלי או עשיר, לפי הסוחר.</b> מתחיל ידליק הכל, מנוסה ישאיר רק תיבת הערה חופשית.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Plus500 CFD · Trade Notes · Wireframes (Desktop) · יוני 2026</div>
+
+</div>
+</body>
+</html>
